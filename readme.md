@@ -2,9 +2,9 @@
 
 ## Sobre o projeto
 
-Bot desenvolvido em Python para realizar análises automáticas de ativos financeiros utilizando dados do Yahoo Finance, calculando indicadores técnicos e enviando relatórios diretamente pelo Telegram.
+Bot desenvolvido em Python para automatizar a análise de ativos financeiros. O sistema consulta dados históricos do Yahoo Finance, calcula indicadores técnicos e envia relatórios diretamente pelo Telegram.
 
-O objetivo do projeto é acompanhar ativos de forma automatizada, facilitando a identificação de oportunidades de compra sem a necessidade de consultar gráficos manualmente.
+O projeto fornece um resumo dos principais indicadores técnicos e uma pontuação baseada em critérios definidos para auxiliar no acompanhamento dos ativos.
 
 Este projeto foi desenvolvido com foco em automação, integração com APIs, programação assíncrona, análise de dados financeiros e organização de aplicações Python.
 
@@ -13,13 +13,15 @@ Este projeto foi desenvolvido com foco em automação, integração com APIs, pr
 ## Funcionalidades
 
 * Geração automática de relatórios dos ativos configurados.
-* Geração manual de relatórios através de comandos do Telegram.
+* Geração manual de relatórios por meio de comandos do Telegram.
 * Cálculo automático dos principais indicadores técnicos.
 * Classificação dos ativos por score de oportunidade.
 * Envio automático de relatórios a cada hora.
 * Controle para impedir execuções simultâneas.
 * Controle de permissões para grupos do Telegram.
 * Gerenciamento dos usuários autorizados, horários de execução e ativos monitorados via arquivo de configuração.
+* Consulta automática de dados históricos utilizando Yahoo Finance.
+* Relatórios em linguagem simples para facilitar a interpretação dos indicadores.
 
 ---
 
@@ -52,20 +54,27 @@ Cada usuário pode possuir uma lista própria de ativos, permitindo que diferent
 
 ## Sistema de pontuação
 
-Cada ativo recebe uma pontuação de 0 a 100 considerando:
+> **Importante:** As análises geradas pelo bot têm caráter informativo e utilizam indicadores técnicos calculados a partir de dados históricos. Elas não constituem recomendação de compra, venda ou investimento.
 
-* Distância da Média Móvel de 200 dias
-* Distância da Média Móvel de 30 dias
-* Queda em relação à máxima dos últimos 90 dias
-* Índice RSI (14 períodos)
+Cada ativo recebe uma nota de **0 a 100**, calculada automaticamente a partir de indicadores técnicos obtidos dos dados históricos do ativo.
 
-Com base na pontuação, o ativo é classificado como:
+A análise considera fatores como:
 
-* 🟢 Excelente oportunidade
-* 🟢 Boa oportunidade
-* 🟡 Oportunidade moderada
-* 🟠 Pouca oportunidade
-* 🔴 Aguarde uma correção
+- Comparação entre o preço atual e o histórico recente;
+- Distância em relação ao maior preço dos últimos meses;
+- Intensidade dos movimentos recentes de alta e baixa (RSI).
+
+Quanto maior a nota, maior é a quantidade de sinais que indicam uma possível oportunidade de compra segundo os critérios adotados pelo projeto.
+
+A classificação utilizada é:
+
+| Nota | Classificação |
+|------:|---------------|
+| 80 a 100 | 🟢 Excelente oportunidade |
+| 60 a 79 | 🟢 Boa oportunidade |
+| 40 a 59 | 🟡 Oportunidade moderada |
+| 20 a 39 | 🟠 Pouca oportunidade |
+| 0 a 19 | 🔴 Melhor aguardar |
 
 ---
 
