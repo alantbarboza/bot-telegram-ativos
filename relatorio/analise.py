@@ -2,7 +2,6 @@ from logging import error
 import math
 import yfinance as yf
 
-
 def calcular_rsi(close, periodo=14):
     """
     Calcula o RSI (Relative Strength Index).
@@ -65,56 +64,42 @@ def pontuacao_movimento(rsi):
 
     if rsi <= 30:
         return 25
-
     if rsi >= 70:
         return 0
 
     return (70 - rsi) / 40 * 25
 
-
 def interpretar_media(preco, media):
-
     diferenca = ((preco - media) / media) * 100
 
     if diferenca <= -5:
         return "🟢 Bem abaixo da média histórica."
-
     if diferenca < 0:
         return "🟢 Um pouco abaixo da média."
-
     if diferenca <= 5:
         return "🟡 Um pouco acima da média."
 
     return "🔴 Bem acima da média."
 
-
 def interpretar_queda(queda):
-
     if queda >= 20:
         return "🟢 Está bem abaixo do maior preço recente."
-
     if queda >= 10:
         return "🟡 Está abaixo do maior preço recente."
 
     return "🔴 Está próximo do maior preço recente."
 
-
 def interpretar_rsi(rsi):
-
     if rsi <= 30:
         return "🟢 Caiu bastante recentemente."
-
     if rsi < 50:
         return "🟡 Movimento levemente de baixa."
-
     if rsi < 70:
         return "🟡 Movimento neutro."
 
     return "🔴 Subiu bastante recentemente."
 
-
 def analisar(ticker):
-
     try:
 
         df = yf.download(
@@ -172,43 +157,27 @@ def analisar(ticker):
 
         if score >= 80:
             status = "🟢 Excelente oportunidade"
-
         elif score >= 60:
             status = "🟢 Boa oportunidade"
-
         elif score >= 40:
             status = "🟡 Oportunidade moderada"
-
         elif score >= 20:
             status = "🟠 Pouca oportunidade"
-
         else:
             status = "🔴 Melhor aguardar."
 
         return {
-
             "ticker": ticker.replace(".SA", ""),
-
             "preco": preco,
-
             "media30": media30,
-
             "media200": media200,
-
             "queda90": queda90,
-
             "rsi": rsi,
-
             "score": score,
-
             "status": status,
-
             "texto_media": interpretar_media(preco, media200),
-
             "texto_queda": interpretar_queda(queda90),
-
             "texto_rsi": interpretar_rsi(rsi),
-
         }
 
     except Exception as e:
