@@ -2,9 +2,9 @@
 
 ## Sobre o projeto
 
-Bot desenvolvido em Python para automatizar a análise de ativos financeiros. O sistema consulta dados históricos do Yahoo Finance, calcula indicadores técnicos e envia relatórios diretamente pelo Telegram.
+O sistema consulta dados históricos do Yahoo Finance, calcula médias móveis, compara o preço atual com essas referências e envia relatórios diretamente pelo Telegram.
 
-O projeto fornece um resumo dos principais indicadores técnicos e uma pontuação baseada em critérios definidos para auxiliar no acompanhamento dos ativos.
+O projeto fornece um resumo do preço atual, das médias móveis de 30 e 200 pregões e informa se o ativo está sendo negociado abaixo ou acima dessas médias, facilitando o acompanhamento dos ativos.
 
 Este projeto foi desenvolvido com foco em automação, integração com APIs, programação assíncrona, análise de dados financeiros e organização de aplicações Python.
 
@@ -14,8 +14,8 @@ Este projeto foi desenvolvido com foco em automação, integração com APIs, pr
 
 * Geração automática de relatórios dos ativos configurados.
 * Geração manual de relatórios por meio de comandos do Telegram.
-* Cálculo automático dos principais indicadores técnicos.
-* Classificação dos ativos por score de oportunidade.
+* Cálculo automático das médias móveis de 30 e 200 pregões.
+* Comparação entre o preço atual e as médias móveis. 
 * Envio automático de relatórios a cada hora.
 * Controle para impedir execuções simultâneas.
 * Controle de permissões para grupos do Telegram.
@@ -40,41 +40,43 @@ Cada usuário pode possuir uma lista própria de ativos, permitindo que diferent
 3. Obtém os dados históricos utilizando a API do Yahoo Finance.
 4. Calcula automaticamente:
    * Preço atual
-   * Média móvel de 30 dias
-   * Média móvel de 200 dias
-   * Queda em relação à máxima dos últimos 90 dias
-   * RSI (Índice de Força Relativa)
-5. Calcula um score de oportunidade baseado nos indicadores.
-6. Classifica cada ativo conforme o score obtido.
-7. Envia o relatório diretamente pelo Telegram.
+   * Média móvel dos últimos 30 pregões
+   * Média móvel dos últimos 200 pregões (ou o histórico disponível, quando inferior)
+   * Diferença percentual entre o preço atual e cada média móvel
+5. Compara o preço atual com a média móvel de 200 pregões e informa se ele está abaixo, próximo ou acima da média histórica.
+6. Envia o relatório diretamente pelo Telegram.
 
 **Observação:** O sistema impede execuções simultâneas. Caso um relatório manual (`/relatorio`) esteja em andamento, a execução automática será ignorada, e vice-versa.
 
 ---
 
-## Sistema de pontuação
+## Como é feita a comparação
 
-> **Importante:** As análises geradas pelo bot têm caráter informativo e utilizam indicadores técnicos calculados a partir de dados históricos. Elas não constituem recomendação de compra, venda ou investimento.
+O objetivo do relatório é responder de forma simples à pergunta:
 
-Cada ativo recebe uma nota de **0 a 100**, calculada automaticamente a partir de indicadores técnicos obtidos dos dados históricos do ativo.
+> O preço atual está abaixo da média?
 
-A análise considera fatores como:
+Para isso, o sistema calcula duas médias móveis:
 
-- Comparação entre o preço atual e o histórico recente;
-- Distância em relação ao maior preço dos últimos meses;
-- Intensidade dos movimentos recentes de alta e baixa (RSI).
+- Média dos últimos 30 pregões;
+- Média dos últimos 200 pregões.
 
-Quanto maior a nota, maior é a quantidade de sinais que indicam uma possível oportunidade de compra segundo os critérios adotados pelo projeto.
+Em seguida calcula a diferença percentual entre o preço atual e cada média:
+```text
+Diferença (%) = ((Preço Atual - Média) / Média) × 100
+```
 
-A classificação utilizada é:
+Interpretação:
 
-| Nota | Classificação |
-|------:|---------------|
-| 80 a 100 | 🟢 Excelente oportunidade |
-| 60 a 79 | 🟢 Boa oportunidade |
-| 40 a 59 | 🟡 Oportunidade moderada |
-| 20 a 39 | 🟠 Pouca oportunidade |
-| 0 a 19 | 🔴 Melhor aguardar |
+| Resultado | Significado |
+|-----------:|------------|
+| Negativo | Preço abaixo da média |
+| Zero | Preço igual à média |
+| Positivo | Preço acima da média |
+
+A média de 200 pregões é utilizada como principal referência para indicar se o ativo está negociando abaixo ou acima do seu preço médio histórico recente.
+
+Importante: Estar abaixo da média não representa, por si só, uma recomendação de compra. A comparação serve apenas como uma referência para indicar se o preço atual está negociando abaixo ou acima das médias móveis analisadas.
 
 ---
 
