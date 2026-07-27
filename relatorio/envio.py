@@ -1,6 +1,5 @@
 from asyncio import to_thread
 from logging import error, info
-
 from bot.mensagens import enviar_mensagem
 from relatorio.analise import analisar
 from relatorio.filtros import obter_ativos
@@ -47,4 +46,4 @@ async def enviar_relatorio(chat_id):
 
     except Exception as erro:
         error(f"Erro ao enviar relatório: {erro}")
-        await enviar_mensagem(chat_id, "❌ Erro ao gerar o relatório.")
+        await enviar_mensagem(chat_id, "Erro ao gerar o relatório.")

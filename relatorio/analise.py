@@ -2,13 +2,11 @@ from logging import error
 import math
 import yfinance as yf
 
-
 def calcular_variacao(preco, media):
     if media == 0:
         return 0
 
     return ((preco - media) / media) * 100
-
 
 def interpretar_preco(preco, media200):
     diferenca = calcular_variacao(preco, media200)
@@ -26,7 +24,6 @@ def interpretar_preco(preco, media200):
         return "🟡 O preço está um pouco acima da média de 200 dias."
 
     return "🔴 O preço está acima da média de 200 dias."
-
 
 def analisar(ticker):
     try:

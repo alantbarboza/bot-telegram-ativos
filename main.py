@@ -50,7 +50,6 @@ basicConfig(
 getLogger("aiogram.event").setLevel(WARNING)
 
 load_dotenv()
-TOKEN = getenv("API_KEY")
 WEBHOOK_PATH = "/webhook"
 BASE_URL = getenv("WEBHOOK_URL")
 
