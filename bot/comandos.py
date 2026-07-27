@@ -136,6 +136,7 @@ async def verificar_comando(message: Message, tipo_chat: str):
             await enviar_mensagem(
                 message.chat.id,
                     "Comandos disponíveis:\n"
+                    "/comandos - Lista todos os comandos disponíveis.\n"
                     "/proxima_execucao - Exibe o horário previsto para enviar o relatório automaticamente.\n"
                     "/limpar - Remove as últimas 1000 mensagens.\n"
                     "/meu_id - Retorna seu user_id.\n"
