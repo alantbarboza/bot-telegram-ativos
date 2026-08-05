@@ -40,6 +40,8 @@ def analisar(ticker):
             return None
 
         close = df["Close"][ticker].dropna()
+        high = df["High"][ticker].dropna()
+        low = df["Low"][ticker].dropna()
 
         if len(close) < 30:
             error(f"{ticker} possui histórico insuficiente.")
@@ -51,6 +53,8 @@ def analisar(ticker):
 
     try:
         preco = float(close.iloc[-1])
+        preco_maximo = float(high.iloc[-1])
+        preco_minimo = float(low.iloc[-1])
 
         media30 = float(close.tail(30).mean())
         media200 = float(close.tail(min(200, len(close))).mean())
@@ -64,6 +68,8 @@ def analisar(ticker):
         return {
             "ticker": ticker.replace(".SA", ""),
             "preco": preco,
+            "preco_maximo": preco_maximo,
+            "preco_minimo": preco_minimo,
             "media30": media30,
             "media200": media200,
             "variacao30": variacao30,

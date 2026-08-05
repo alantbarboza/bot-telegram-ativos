@@ -7,16 +7,22 @@ from relatorio.filtros import obter_ativos
 def formatar_relatorio(resultado):
     return (
         f"📊 {resultado['ticker']}\n\n"
-        f"💰 Preço atual\n"
-        f"R$ {resultado['preco']:.2f}\n\n"
-        f"Médias de referência\n"
+
+        f"💰 Preço atual: R$ {resultado['preco']:.2f}\n\n"
+
+        f"📈 Preço máximo do pregão atual: R$ {resultado['preco_maximo']:.2f}\n"
+        f"📉 Preço mínimo do pregão atual: R$ {resultado['preco_minimo']:.2f}\n\n"
+
+        f"Preço médio:\n"
         f"30 dias: R$ {resultado['media30']:.2f}\n"
         f"200 dias: R$ {resultado['media200']:.2f}\n\n"
-        f"Comparação\n"
-        f"{resultado['texto_preco']}\n\n"
-        f"Diferença para as médias\n"
+
+        f"Diferença: Preço atual X Preço médio\n"
         f"30 dias: {resultado['variacao30']:+.2f}%\n"
-        f"200 dias: {resultado['variacao200']:+.2f}%"
+        f"200 dias: {resultado['variacao200']:+.2f}%\n\n"
+
+        f"Análise:\n"
+        f"{resultado['texto_preco']}\n\n"
     )
 
 

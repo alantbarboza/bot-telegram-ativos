@@ -4,7 +4,7 @@
 
 O sistema consulta dados históricos do Yahoo Finance, calcula médias móveis, compara o preço atual com essas referências e envia relatórios diretamente pelo Telegram.
 
-O projeto fornece um resumo do preço atual, das médias móveis de 30 e 200 pregões e informa se o ativo está sendo negociado abaixo ou acima dessas médias, facilitando o acompanhamento dos ativos.
+O projeto fornece um resumo do preço atual, da máxima e mínima do dia, das médias móveis de 30 e 200 pregões e informa se o ativo está sendo negociado abaixo ou acima dessas médias, facilitando o acompanhamento dos ativos.
 
 Este projeto foi desenvolvido com foco em automação, integração com APIs, programação assíncrona, análise de dados financeiros e organização de aplicações Python.
 
@@ -15,6 +15,7 @@ Este projeto foi desenvolvido com foco em automação, integração com APIs, pr
 * Geração automática de relatórios dos ativos configurados.
 * Geração manual de relatórios por meio de comandos do Telegram.
 * Cálculo automático das médias móveis de 30 e 200 pregões.
+* Exibição do preço máximo e mínimo do pregão atual.
 * Comparação entre o preço atual e as médias móveis. 
 * Envio automático de relatórios a cada hora.
 * Controle para impedir execuções simultâneas.
@@ -40,6 +41,8 @@ Cada usuário pode possuir uma lista própria de ativos, permitindo que diferent
 3. Obtém os dados históricos utilizando a API do Yahoo Finance.
 4. Calcula automaticamente:
    * Preço atual
+   * Preço máximo do pregão atual
+   * Preço mínimo do pregão atual
    * Média móvel dos últimos 30 pregões
    * Média móvel dos últimos 200 pregões (ou o histórico disponível, quando inferior)
    * Diferença percentual entre o preço atual e cada média móvel
