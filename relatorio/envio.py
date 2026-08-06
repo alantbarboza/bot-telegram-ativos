@@ -10,8 +10,8 @@ def formatar_relatorio(resultado):
 
         f"💰 Preço atual: R$ {resultado['preco']:.2f}\n\n"
 
-        f"📈 Preço máximo do pregão atual: R$ {resultado['preco_maximo']:.2f}\n"
-        f"📉 Preço mínimo do pregão atual: R$ {resultado['preco_minimo']:.2f}\n\n"
+        f"📈 Preço máximo: R$ {resultado['preco_maximo']:.2f}\n"
+        f"📉 Preço mínimo: R$ {resultado['preco_minimo']:.2f}\n\n"
 
         f"Preço médio:\n"
         f"30 dias: R$ {resultado['media30']:.2f}\n"
